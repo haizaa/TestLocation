@@ -21,6 +21,7 @@ using GMap;
 using System.Web.UI.WebControls;
 using GMap.NET;
 using GMap.NET.WindowsForms;
+using GMap.NET.MapProviders;
 
 namespace TestLocation
 {
@@ -133,7 +134,8 @@ namespace TestLocation
 
         public void gMapControl1_Load(object sender, EventArgs e)
         {
-            gMapControl1.MapProvider = GMap.NET.MapProviders.BingMapProvider.Instance;
+            gMapControl1.MapProvider = GMapProviders.GoogleMap;
+            //gMapControl1.MapProvider = GMap.NET.MapProviders.BingMapProvider.Instance;
             GMaps.Instance.Mode = AccessMode.ServerOnly;
             GMapOverlay polyOverlay = new GMapOverlay("polygons");
             List<PointLatLng> points = new List<PointLatLng>();
