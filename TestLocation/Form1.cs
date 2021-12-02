@@ -28,10 +28,12 @@ namespace TestLocation
             InitializeComponent();
             gMapControl1.MapProvider = GMapProviders.GoogleMap;
             gMapControl1.Position = new PointLatLng(0, 0);
-            gMapControl1.Zoom = 10;
+            gMapControl1.MinZoom = 1;
+            gMapControl1.MaxZoom = 100;
+            gMapControl1.Zoom = 5;
             GMaps.Instance.Mode = AccessMode.ServerOnly;
         }
-        
+
         public void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
             choosetime.CustomFormat = "MM/dd/yyyy hh:mm:ss tt";
@@ -46,8 +48,8 @@ namespace TestLocation
             string dateticks = createDates(ticks);
             string dis = getPosition(dateticks);
             List<MyClass> asd = JsonConvert.DeserializeObject<List<MyClass>>(dis);
-            double  lat = 0;
-            double  lon =0;
+            double lat = 0;
+            double lon = 0;
 
             for (int i = 0; i < asd.Count; i++)
             {
@@ -75,6 +77,13 @@ namespace TestLocation
                 listView1.Items.Add(new ListViewItem(new string[] { dateee, latid, longi }));
             }
 
+            Astro testing = getPeople();
+            for (int i = 0; i < testing.people.Count; i++)
+            {
+                textBox1.AppendText($"{i + 1})  {testing.people[i].name}{Environment.NewLine}");
+            }
+
+
         }
         private string createDates(string dTime)
         {
@@ -84,7 +93,7 @@ namespace TestLocation
             string ticks = "";
             for (DateTime time = startTime; time <= endTime; time = time.AddMinutes(10))
             {
-                Int32 unixtimestamp = (Int32)(time.ToUniversalTime().Subtract(new DateTime(1970,1,1))).TotalSeconds;
+                Int32 unixtimestamp = (Int32)(time.ToUniversalTime().Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
                 if (time == startTime)
                 {
                     ticks += unixtimestamp;
@@ -106,21 +115,29 @@ namespace TestLocation
             var response = client.Execute(new RestRequest());
             return response.Content;
         }
-        private string getPeople()
+        private Astro getPeople()
         {
-            string position = $"http://api.open-notify.org/astros.json";
-            var client = new RestClient(position);
+            string path = "http://api.open-notify.org/astros.json";
+            var client = new RestClient(path);
             var response = client.Execute(new RestRequest());
-            return response.Content;
+            Astro astro = JsonConvert.DeserializeObject<Astro>(response.Content);
+            return astro;
         }
-        private string getMapping(float lat, float lon)
+
+        public void gMapControl1_Load(object sender, EventArgs e)
         {
-            //string position = "https://api.wheretheiss.at/v1/satellites/25544/positions?timestamps=1436029892,1436029902&units=km";
-            string map = $"https://api.wheretheiss.at/v1/coordinates/37.795517,-122.393693";
-            var client = new RestClient(map);
-            var response = client.Execute(new RestRequest());
-            return response.Content;
+            gMapControl1.DragButton = MouseButtons.Left;
         }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
         class MyClass
         {
 
@@ -140,51 +157,17 @@ namespace TestLocation
             public string units { get; set; }
 
         }
-
-        class peopleiniss
+        public class Astro
         {
-
+            public string message { get; set; }
+            public int number { get; set; }
+            public List<People> people { get; set; }
         }
-        public void gMapControl1_Load(object sender, EventArgs e)
+        public class People
         {
-            gMapControl1.DragButton = MouseButtons.Left;
-            //GMapOverlay polyOverlay = new GMapOverlay("polygons");
-            //List<PointLatLng> points = new List<PointLatLng>();
-            //for (int i = 0; i < latid.Count; i++)
-            //{
-            //    double slatid = Convert.ToDouble(latid[i]);
-            //    double slongi = Convert.ToDouble(longi[i]);
-            //    points.Add(new PointLatLng(slatid, slongi));
-            //}
-            //GMapPolygon polygon = new GMapPolygon(points, "Route of ISS");
-            //polyOverlay.Polygons.Add(polygon);
-            //gMapControl1.Overlays.Add(polyOverlay);
+            public string name { get; set; }
+            public string craft { get; set; }
         }
 
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string ticks = choosetime.Value.ToString();
-            string dateticks = createDates(ticks);
-            string dis = getPosition(dateticks);
-            List<MyClass> asd = JsonConvert.DeserializeObject<List<MyClass>>(dis);
-            double lat = 0;
-            double lon = 0;
-            float timestamp = 0;
-
-            for (int i = 0; i < asd.Count; i++)
-            {
-                lat = asd[i].latitude;
-                lon = asd[i].longitude;
-                timestamp = asd[i].timestamp;
-
-                DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-                dateTime = dateTime.AddSeconds(timestamp).ToLocalTime();
-
-                listView1.Items.Add(datetime.ToString());
-                listView1.Items.Add(lat.ToString());
-                listView1.Items.Add(lon.ToString());
-            }
-            }
-        }
-
+    }
 }

@@ -38,6 +38,9 @@ namespace TestLocation
             this.datetime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Latitude = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Longitude = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // choosetime
@@ -106,7 +109,7 @@ namespace TestLocation
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(624, 66);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(241, 282);
+            this.listView1.Size = new System.Drawing.Size(241, 265);
             this.listView1.TabIndex = 5;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -125,11 +128,42 @@ namespace TestLocation
             // 
             this.Longitude.Text = "Longitude";
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(624, 376);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBox1.Size = new System.Drawing.Size(241, 134);
+            this.textBox1.TabIndex = 6;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(624, 360);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(101, 13);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Who is at ISS now?";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(624, 50);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(203, 13);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Coordinate +1 hour and -1 hour from input";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(870, 522);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.gMapControl1);
             this.Controls.Add(this.button1);
@@ -152,6 +186,9 @@ namespace TestLocation
         private System.Windows.Forms.ColumnHeader datetime;
         private System.Windows.Forms.ColumnHeader Latitude;
         private System.Windows.Forms.ColumnHeader Longitude;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }
 
