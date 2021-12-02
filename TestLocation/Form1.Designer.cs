@@ -34,6 +34,10 @@ namespace TestLocation
             this.input = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.datetime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Latitude = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Longitude = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // choosetime
@@ -76,7 +80,7 @@ namespace TestLocation
             this.gMapControl1.Location = new System.Drawing.Point(27, 66);
             this.gMapControl1.MarkersEnabled = true;
             this.gMapControl1.MaxZoom = 2;
-            this.gMapControl1.MinZoom = 2;
+            this.gMapControl1.MinZoom = 20;
             this.gMapControl1.MouseWheelZoomEnabled = true;
             this.gMapControl1.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
             this.gMapControl1.Name = "gMapControl1";
@@ -87,16 +91,46 @@ namespace TestLocation
             this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapControl1.ShowTileGridLines = false;
-            this.gMapControl1.Size = new System.Drawing.Size(509, 348);
-            this.gMapControl1.TabIndex = 4;
+            this.gMapControl1.Size = new System.Drawing.Size(591, 444);
+            this.gMapControl1.TabIndex = 2;
             this.gMapControl1.Zoom = 0D;
             this.gMapControl1.Load += new System.EventHandler(this.gMapControl1_Load);
+            // 
+            // listView1
+            // 
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.datetime,
+            this.Latitude,
+            this.Longitude});
+            this.listView1.GridLines = true;
+            this.listView1.HideSelection = false;
+            this.listView1.Location = new System.Drawing.Point(624, 66);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(241, 282);
+            this.listView1.TabIndex = 5;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
+            // 
+            // datetime
+            // 
+            this.datetime.Text = "Date Time";
+            this.datetime.Width = 80;
+            // 
+            // Latitude
+            // 
+            this.Latitude.Text = "Latitude";
+            // 
+            // Longitude
+            // 
+            this.Longitude.Text = "Longitude";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(870, 522);
+            this.Controls.Add(this.listView1);
             this.Controls.Add(this.gMapControl1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.input);
@@ -114,6 +148,10 @@ namespace TestLocation
         private System.Windows.Forms.Label input;
         private System.Windows.Forms.Button button1;
         private GMap.NET.WindowsForms.GMapControl gMapControl1;
+        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ColumnHeader datetime;
+        private System.Windows.Forms.ColumnHeader Latitude;
+        private System.Windows.Forms.ColumnHeader Longitude;
     }
 }
 
